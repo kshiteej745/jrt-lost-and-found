@@ -1,18 +1,19 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Work_Sans } from 'next/font/google'
+import { Space_Grotesk, IBM_Plex_Serif } from 'next/font/google'
+import Link from 'next/link'
 import './globals.css'
 
-const playfairDisplay = Playfair_Display({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['400', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
-const workSans = Work_Sans({
+const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
   variable: '--font-body',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 })
 
@@ -27,48 +28,51 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfairDisplay.variable} ${workSans.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${ibmPlexSerif.variable}`}>
       <body>
         <div className="flex min-h-screen flex-col">
-          <header className="border-b-2 border-tucker-blue bg-white">
+          <header className="border-b-4 border-tucker-blue bg-gradient-to-b from-white to-neutral-50 shadow-sm">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="flex h-20 items-center justify-between">
-                <div className="flex items-center">
-                  <h1 className="font-display text-2xl font-bold text-tucker-blue sm:text-3xl">
-                    J.R. Tucker High School
-                  </h1>
-                  <span className="ml-3 hidden text-lg text-neutral-600 sm:inline">
-                    Lost & Found
-                  </span>
-                </div>
-                <nav className="hidden md:flex md:items-center md:space-x-1">
+              <div className="flex h-24 items-center justify-between">
+                <Link href="/" className="flex items-center group">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-tucker-blue text-white shadow-md transition-transform group-hover:scale-105">
+                      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h1 className="font-display text-2xl font-bold text-tucker-blue sm:text-3xl tracking-tight">
+                        J.R. Tucker High School
+                      </h1>
+                      <p className="text-sm font-medium text-tiger-orange sm:text-base">
+                        Lost & Found
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+                <nav className="hidden md:flex md:items-center md:gap-2">
                   <a
                     href="/"
-                    className="rounded-md px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-tucker-blue"
+                    className="rounded-lg px-4 py-2 text-sm font-semibold text-neutral-700 transition-all hover:bg-tucker-blue hover:text-white hover:shadow-md"
                   >
                     Home
                   </a>
                   <a
                     href="/report"
-                    className="rounded-md px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-tucker-blue"
+                    className="rounded-lg px-4 py-2 text-sm font-semibold text-neutral-700 transition-all hover:bg-tucker-blue hover:text-white hover:shadow-md"
                   >
-                    Report Found Item
+                    Report Item
                   </a>
                   <a
-                    href="/browse"
-                    className="rounded-md px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-tucker-blue"
+                    href="/items"
+                    className="rounded-lg px-4 py-2 text-sm font-semibold text-neutral-700 transition-all hover:bg-tucker-blue hover:text-white hover:shadow-md"
                   >
                     Browse Items
                   </a>
-                  <a
-                    href="/admin"
-                    className="rounded-md px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-tucker-blue"
-                  >
-                    Admin
-                  </a>
                 </nav>
                 <button
-                  className="md:hidden"
+                  className="md:hidden rounded-lg p-2 hover:bg-neutral-100 transition-colors"
                   aria-label="Toggle navigation menu"
                   type="button"
                 >

@@ -41,6 +41,9 @@ export default function ItemsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [totalItems, setTotalItems] = useState(0)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(
+    searchParams.get('submitted') !== null
+  )
 
   // Fetch items from API
   useEffect(() => {
@@ -89,6 +92,46 @@ export default function ItemsPage() {
           Search through items that have been turned in to the Lost & Found.
         </p>
       </div>
+
+      {/* Success Message */}
+      {showSuccessMessage && (
+        <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4">
+          <div className="flex items-start justify-between">
+            <div className="flex">
+              <svg
+                className="h-5 w-5 text-green-600 mt-0.5 mr-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h3 className="text-sm font-medium text-green-800">
+                  Item submitted successfully!
+                </h3>
+                <p className="mt-1 text-sm text-green-700">
+                  Your item has been submitted and is pending review by school staff. 
+                  It will appear on this page once approved.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowSuccessMessage(false)}
+              className="text-green-600 hover:text-green-800"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Filters and Search */}
       <div className="mb-8 space-y-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
