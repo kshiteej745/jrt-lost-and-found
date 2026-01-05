@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  id          Int       @id @default(autoincrement())
+  title       String
+  category    String
+  description String    @db.Text
+  location    String
+  dateFound   DateTime
+  status      String    // 'pending', 'approved', 'claimed', 'returned'
+  reportedBy  String?
+  photos      String[]  @default([])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  claims Claim[]
+
+  @@index([status])
+  @@index([category])
+  @@index([dateFound])
+}
+
+model Claim {
+  id               Int       @id @default(autoincrement())
+  itemId           Int
+  item              Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  claimantName     String
+  claimantEmail    String
+  message          String?   @db.Text
+  proofDescription String    @db.Text
+  status           String    // 'pending', 'approved', 'rejected'
+  submittedDate    DateTime  @default(now())
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([itemId])
+  @@index([status])
+  @@index([submittedDate])
+}
+
